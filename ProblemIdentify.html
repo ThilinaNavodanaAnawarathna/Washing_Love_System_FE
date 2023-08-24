@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Damage Detection</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex align-items-center" style="background-color:white;height: 100vh !important;">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-9 hero-img" data-aos="zoom-in" data-aos-delay="200">
+        <h2 style="color:#5385AA; ">Your Washing Process Finished</h2>
+        <h1 class="text-dark">Identifying Vehicle External Damage</h1>
+      </div>
+      <div class="col-lg-3 d-flex flex-column justify-content-center pt-4 pt-lg-0 " data-aos="fade-up" data-aos-delay="200">
+
+          <div id="donBtn" onclick="startDamageDetect()"  class="w-75 py-3 text-white" style="background: #5385AA; text-align: center">Done</div>
+
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-lg-3 hero-img" data-aos="zoom-in" data-aos-delay="200">
+        <img  id="image-preview-1" src="assets/img/1.png" class="img-fluid animated" alt="">
+        <input onchange="previewImage(1)" type="file" onchange="previewImage()" name="numberPlate" class="form-control"  id="front">
+        <h5 class="img-fluid  text-center mt-3">Front</h5>
+      </div>
+      <div class="col-lg-3 hero-img" data-aos="zoom-in" data-aos-delay="200">
+        <img id="image-preview-2" src="assets/img/2.png" class="img-fluid animated" alt="">
+        <input onchange="previewImage(2)" type="file" onchange="previewImage()" name="numberPlate" class="form-control"  id="back">
+        <h5 class="img-fluid  text-center mt-3">Back</h5>
+      </div>
+      <div class="col-lg-3 hero-img" data-aos="zoom-in" data-aos-delay="200">
+        <img id="image-preview-3" src="assets/img/3.png" class="img-fluid animated" alt="">
+        <input onchange="previewImage(3)" type="file" onchange="previewImage()" name="numberPlate" class="form-control"  id="left">
+        <h5 class="img-fluid   text-center mt-3">Left</h5>
+
+      </div><div class="col-lg-3 hero-img" data-aos="zoom-in" data-aos-delay="200">
+      <img id="image-preview-4" src="assets/img/4.png" class="img-fluid animated" alt="">
+      <input onchange="previewImage(4)" type="file" onchange="previewImage()" name="numberPlate" class="form-control"  id="right">
+      <h5 class="img-fluid animateds  text-center mt-3">Right</h5>
+    </div>
+
+    </div>
+  </div>
+
+</section><!-- End Hero -->
+
+<div id="preloader"></div>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="assets/vendor/aos/aos.js"></script>
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+<script src="assets/vendor/php-email-form/validate.js"></script>
+
+<!-- Template Main JS File -->
+<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
+<style>
+  #image-preview-1 {
+    width: 200%;
+    height: 70%;
+  }
+
+  #image-preview-2 {
+    width: 200%;
+    height: 70%;
+  }
+
+
+  #image-preview-3 {
+    width: 200%;
+    height: 70%;
+  }
+
+  #image-preview-4 {
+    width: 200%;
+    height: 70%;
+  }
+
+</style>
+<script src="assets/js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+  function previewImage(x) {
+    if (x==1){
+      const fileInput = document.getElementById('front');
+      const imagePreview = document.getElementById('image-preview-1');
+
+      const selectedFile = fileInput.files[0];
+
+      if (selectedFile) {
+        const reader = new FileReader();
+
+        reader.onload = function(event) {
+          imagePreview.src = event.target.result;
+        };
+
+        reader.readAsDataURL(selectedFile);
+      } else {
+        imagePreview.src = '#';
+      }
+    }else if(x==2){
+      const fileInput = document.getElementById('back');
+      const imagePreview = document.getElementById('image-preview-2');
+
+      const selectedFile = fileInput.files[0];
+
+      if (selectedFile) {
+        const reader = new FileReader();
+
+        reader.onload = function(event) {
+          imagePreview.src = event.target.result;
+        };
+
+        reader.readAsDataURL(selectedFile);
+      } else {
+        imagePreview.src = '#';
+      }
+    }else if(x==3){
+      const fileInput = document.getElementById('left');
+      const imagePreview = document.getElementById('image-preview-3');
+
+      const selectedFile = fileInput.files[0];
+
+      if (selectedFile) {
+        const reader = new FileReader();
+
+        reader.onload = function(event) {
+          imagePreview.src = event.target.result;
+        };
+
+        reader.readAsDataURL(selectedFile);
+      } else {
+        imagePreview.src = '#';
+      }
+    }else if(x==4){
+      const fileInput = document.getElementById('right');
+      const imagePreview = document.getElementById('image-preview-4');
+
+      const selectedFile = fileInput.files[0];
+
+      if (selectedFile) {
+        const reader = new FileReader();
+
+        reader.onload = function(event) {
+          imagePreview.src = event.target.result;
+        };
+
+        reader.readAsDataURL(selectedFile);
+      } else {
+        imagePreview.src = '#';
+      }
+    }
+  }
+
+  function startDamageDetect() {
+    // $('#donBtn').css('display','none')
+    var front = $('#front')
+    const frontFile = front[0].files[0];
+
+    var back = $('#back')
+    const backFile = back[0].files[0];
+
+    var left = $('#left')
+    const leftFile = left[0].files[0];
+
+    var right = $('#right')
+    const rightFile = right[0].files[0];
+
+    const payload = {
+      front: frontFile,
+      back: backFile,
+      left: leftFile,
+      right: rightFile,
+
+    }
+    axios.post('http://localhost:8083/wl/v1/api/system/damage',payload, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "authorization": "Bearer " + localStorage.getItem("user-token")
+      },
+      params:{"bookingId":localStorage.getItem("booking-id")}
+    })
+            .then((response) => {
+              const imageElement1 = document.getElementById("image-preview-1");
+              imageElement1.src = "data:image/png;base64,"+response.data.frontReport.imageBase64;
+              const imageElement2 = document.getElementById("image-preview-2");
+              imageElement2.src = "data:image/png;base64,"+response.data.backReport.imageBase64;
+              const imageElement3 = document.getElementById("image-preview-3");
+              imageElement3.src = "data:image/png;base64,"+response.data.leftReport.imageBase64;
+              const imageElement4 = document.getElementById("image-preview-4");
+              imageElement4.src = "data:image/png;base64,"+response.data.rightReport.imageBase64;
+              // location.href = "ReportGenerate.html";
+              // setTimeout(nextPage,20000)
+            }, (error) => {
+              console.log(error)
+            });
+
+  }
+
+  function nextPage(){
+    location.href = "ReportGenerate.html";
+  }
+</script>
