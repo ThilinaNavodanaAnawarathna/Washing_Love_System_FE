@@ -44,6 +44,7 @@
       <div class="col-lg-3 d-flex flex-column justify-content-center pt-4 pt-lg-0 " data-aos="fade-up" data-aos-delay="200">
 
           <div id="donBtn" onclick="startDamageDetect()"  class="w-75 py-3 text-white" style="background: #5385AA; text-align: center">Done</div>
+          <div id="waitnBtn" onclick="startDamageDetect()"  class="w-75 py-3 text-white" style="background: #5385AA; text-align: center;display: none">Please wait...</div>
 
       </div>
 
@@ -192,7 +193,8 @@
   }
 
   function startDamageDetect() {
-    // $('#donBtn').css('display','none')
+    $('#donBtn').css('display','none')
+    $('#waitnBtn').css('display','block')
     var front = $('#front')
     const frontFile = front[0].files[0];
 
@@ -229,7 +231,7 @@
               const imageElement4 = document.getElementById("image-preview-4");
               imageElement4.src = "data:image/png;base64,"+response.data.rightReport.imageBase64;
               // location.href = "ReportGenerate.html";
-              // setTimeout(nextPage,20000)
+              setTimeout(nextPage,10000)
             }, (error) => {
               console.log(error)
             });
@@ -237,6 +239,8 @@
   }
 
   function nextPage(){
+    $('#donBtn').css('display','block')
+    $('#waitnBtn').css('display','none')
     location.href = "ReportGenerate.html";
   }
 </script>

@@ -51,9 +51,9 @@
           <h5>Date             : <span id="bookingDate"></span></h5>
           <h5>Time             : <span id="bookingTime"></span></h5>
         </div>
-        <a href="wainting.html">
-        <div  class="my-4 w-75 py-3 text-white" style="background: #5385AA; text-align: center">Next</div>
-        </a>
+<!--        <a href="wainting.html">-->
+<!--        <div  class="my-4 w-75 py-3 text-white" style="background: #5385AA; text-align: center">Next</div>-->
+<!--        </a>-->
       </div>
       <div class="col-lg-6 hero-img" data-aos="zoom-in" data-aos-delay="200">
         <img src="assets/img/vehicle.gif" class="img-fluid animated" alt="">
@@ -103,7 +103,7 @@
             }, (error) => {
               $('#msg1').text("Oooh !!!, Your Booking Details Are Invalid...")
               $('#msg2').text("Please Check Your Booking Details And Come Again")
-              setTimeout(invalidBooking,20000)
+              setTimeout(invalidBooking,10000)
             });
 
   }
